@@ -87,3 +87,8 @@ class TestSanity(unittest.TestCase):
         ret, stdout, stderr = bench.host.exec("echo -n 'Hello World' >&2")
         self.assertEqual(stdout.strip(), "")
         self.assertEqual(stderr.strip(), "Hello World")
+
+    def test_sanity_stats(self):
+        interface = bench.links[0].target_if
+        interface.stats.snapshot()
+        print(interface.stats.rx_octets)

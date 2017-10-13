@@ -1,4 +1,6 @@
 
+from .statistics import Statistics
+
 class Interface:
     """
     Network interface on a Machine. The name must be a string on which
@@ -10,6 +12,7 @@ class Interface:
         self.machine = machine
         self.switch = switch
         self.port_id = port_id
+        self.stats = Statistics(self)
 
 
     def __repr__(self):
