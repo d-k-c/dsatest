@@ -90,5 +90,5 @@ class TestSanity(unittest.TestCase):
 
     def test_sanity_stats(self):
         interface = bench.links[0].target_if
-        interface.stats.snapshot()
-        print(interface.stats.rx_octets)
+        stats = interface.stats.snapshot()
+        print(stats.rx_octets)

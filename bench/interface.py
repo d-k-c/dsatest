@@ -1,5 +1,5 @@
 
-from .statistics import Statistics
+from .statistics import StatisticsCapture
 
 class Interface:
     """
@@ -12,7 +12,7 @@ class Interface:
         self.machine = machine
         self.switch = switch
         self.port_id = port_id
-        self.stats = Statistics(self)
+        self.stats = StatisticsCapture(self)
 
 
     def __repr__(self):
