@@ -59,6 +59,16 @@ class Machine:
         self.bridges.remove(bridge)
         bridge.destroy()
 
+    def add_vlan(self, name, parent_interface, vid):
+        command = "ip link add {0} link {1} type vlan id {2}".format(name, parent_interface, vid)
+        ret, _, _ = self.control.execute(command)
+        return ret
+
+    def del_vlan(self, name):
+        command = "ip link del {0}".format(name)
+        ret, _, _ = self.control.execute(command)
+        return ret
+
     def ping(self, destination, count=None, deadline=None, from_if=None):
         cmd = "ping "
         if count is not None:
