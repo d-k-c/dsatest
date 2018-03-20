@@ -1,9 +1,10 @@
 
-__all__ = ['Bench', 'Bridge', 'Interface', 'Link', 'Machine']
+__all__ = ['BaseInterface', 'Bench', 'Bridge', 'BaseInterface',
+           'Interface', 'Link', 'Machine', 'Vlan']
 
 from .bridge import Bridge
 from .bench import Bench
-from .interface import Interface
+from .interface import BaseInterface, Interface, Vlan
 from .link import Link
 from .machine import Machine
 

@@ -1,6 +1,4 @@
 
-from .vlan import Vlan
-
 class BaseInterface(object):
     """
     Network interface on a Machine. The name must be a string on which
@@ -41,11 +39,26 @@ class BaseInterface(object):
     def arp_get(self, address):
         return self.machine.arp_get(address, self.name)
 
+class Vlan(BaseInterface):
+
+    def __init__(self, parent_if, vid):
+        # name will be set in self.name in parent constructor
+        name = "{}.{}".format(parent_if.name, vid)
+        super().__init__(self, name, parent_if.machine,
+                         parent_if.switch, parent_if.port_id)
+        self.parent = parent_if
+        self.vid = vid
+
+    def setup(self):
+        return self.parent.machine.add_vlan(self.name, self.parent.name, self.vid)
+
+    def teardown(self):
+        return self.parent.machine.del_vlan(self.name)
 
 class Interface(BaseInterface):
 
     def __init__(self, name, machine, switch=None, port_id=None):
-        super().__init__(self, name, machine, switch, port_id)
+        super().__init__(name, machine, switch, port_id)
         self.vlans = dict()
 
     def __del__(self):
